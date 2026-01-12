@@ -1,22 +1,21 @@
 function findCertificate() {
-    const bib = document.getElementById('bibInput').value.trim();
+    let bibInput = document.getElementById('bibInput').value.trim();
     const resultDiv = document.getElementById('result');
 
-    if (!bib) {
+    if (!bibInput) {
         resultDiv.innerHTML = `<p style="color:red;">Please enter a BIB number.</p>`;
         return;
     }
 
-    // Replace spaces with %20 for URL encoding
-    const fileName = `${bib}.pdf`.replace(/\s/g, '%20');
+    // Encode spaces for URL
+    const encodedBib = encodeURIComponent(bibInput);  // "A 001" -> "A%20001"
+    const fileName = `${encodedBib}.pdf`;
 
     // Show download link
-    const linkHTML = `
-        <p>Certificate for <strong>${bib}</strong>:</p>
-        <a href="${fileName}" target="_blank" download>
+    resultDiv.innerHTML = `
+        <p>Certificate for <strong>${bibInput}</strong>:</p>
+        <a href="${fileName}" target="_blank">
             <button>View / Download</button>
         </a>
     `;
-
-    resultDiv.innerHTML = linkHTML;
 }
