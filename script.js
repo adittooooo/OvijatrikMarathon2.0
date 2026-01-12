@@ -1,5 +1,5 @@
 function findCertificate() {
-    const bib = document.getElementById('bibInput').value.trim().replace(/\s/g, '');
+    const bib = document.getElementById('bibInput').value.trim();
     const resultDiv = document.getElementById('result');
 
     if (!bib) {
@@ -7,10 +7,10 @@ function findCertificate() {
         return;
     }
 
-    // Assume filenames are like A001.pdf, B023.pdf etc.
-    const fileName = `${bib}.pdf`;
+    // Replace spaces with %20 for URL encoding
+    const fileName = `${bib}.pdf`.replace(/\s/g, '%20');
 
-    // Check if the file exists (GitHub Pages can't check directly, so we assume user enters correctly)
+    // Show download link
     const linkHTML = `
         <p>Certificate for <strong>${bib}</strong>:</p>
         <a href="${fileName}" target="_blank" download>
